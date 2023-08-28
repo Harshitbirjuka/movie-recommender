@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Recommender</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #675a5a;
+
+            
+            
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            margin: 0;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            width: 300px;
+        }
+
+        button[type="submit"] {
+            padding: 8px 15px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #555;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    <h1>Movie Recommender</h1>
+    <div class="container">
+        <form method="POST">
+            <label for="movie_name">Enter a movie name:</label>
+            <input type="text" id="movie_name" name="movie_name" required>
+            <button type="submit">Get Recommendations</button>
+        </form>
+        {% if error_message %}
+        <p>{{ error_message }}</p>
+        {% endif %}
+
+        <!-- Display input movie details -->
+<!-- Display input movie details -->
+        {% if input_movie_details_list %}
+        <div class="container">
+        <h2>Input Movie Details:</h2>
+        <ul>
+            <li><strong>Title:</strong> {{ input_movie_details_list[0] }}</li>
+            <li><strong>Year:</strong> {{ input_movie_details_list[1] }}</li>
+            <li><strong>Duration:</strong> {{ input_movie_details_list[2] }} mins</li>
+            <li><strong>Genre:</strong> {{ input_movie_details_list[3] }}</li>
+            <li><strong>Rating:</strong>
+                <span class="stars">
+                    {% for _ in range(number_of_stars) %}
+                        <i class="fa fa-star"></i>
+                    {% endfor %}
+                </span>
+            </li>
+            <li><strong>Reviews:</strong> {{ input_movie_details_list[5] }}</li>
+            <li><strong>Director:</strong> {{ input_movie_details_list[6] }}</li>
+            <li><strong>Actors:</strong> {{ input_movie_details_list[7] }}, {{ input_movie_details_list[8] }}, {{ input_movie_details_list[9] }}</li>
+        </ul>
+        </div>
+        {% endif %}
+
+
+        {% if recommended_movies %}
+        <h2>Recommended movies:</h2>
+        <ul>
+            {% for movie in recommended_movies %}
+            <li>{{ movie }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if director_movies %}
+        <h2>Movies by the same director:</h2>
+        <ul>
+            {% for movie in director_movies %}
+            <li>{{ movie }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if top_movies %}
+        <h2>top imdb rated movies:</h2>
+        <ul>
+            {% for movie in top_movies %}
+            <li>{{ movie }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</body>
+</html>
